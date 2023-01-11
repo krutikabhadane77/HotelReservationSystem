@@ -12,27 +12,27 @@ public class HotelSystemTest {
     @Before
     public void init() {
         hotelReservation = new HotelReservation();
-        hotelReservation.addHotel("Lakewood", 110,90,3);
-        hotelReservation.addHotel("Bridgewood", 160,50,4);
-        hotelReservation.addHotel("Ridgewood", 220,150,5);
+        hotelReservation.addHotel("Lakewood", 110,90,80,80,3);
+        hotelReservation.addHotel("Bridgewood", 160,50,110,50,4);
+        hotelReservation.addHotel("Ridgewood", 220,150,100,40,5);
     }
 
     @Test
     public void whenLakewoodAdded_ShouldReturnTrue()
     {
-        assertTrue(hotelReservation.addHotel("Lakewood",110,90,3));
+        assertTrue(hotelReservation.addHotel("Lakewood",110,90,80,80,3));
     }
 
     @Test
     public void whenBridgewoodAdded_ShouldReturnTrue()
     {
-        assertTrue(hotelReservation.addHotel("Bridgewood", 160,50,4));
+        assertTrue(hotelReservation.addHotel("Bridgewood", 160,50,110,50,4));
     }
 
     @Test
     public void whenRidgewoodAdded_ShouldReturnTrue()
     {
-        assertTrue(hotelReservation.addHotel("Ridgewood", 220,150,5));
+        assertTrue(hotelReservation.addHotel("Ridgewood", 220,150,100,40,5));
     }
 
     @Test

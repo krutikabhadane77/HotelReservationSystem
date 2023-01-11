@@ -15,10 +15,11 @@ public class HotelReservation {
         hotelList.add(hotel);
     }
 
-    public boolean addHotel(String hotelName, int rateWeekdayRegular,int rateWeekendRegular, int rating)  {
+    public boolean addHotel(String hotelName, int rateWeekdayRegular,int rateWeekendRegular,int rateWeekdayReward,int rateWeekendReward, int rating)  {
 
         HotelObject hotel = new HotelObject(hotelName,rateWeekdayRegular);
         hotel.setWeekendRates(rateWeekendRegular);
+        hotel.addRewardRate(rateWeekdayReward,rateWeekendReward);
         hotel.addRating(rating);
         addToList(hotel);
         return true;
@@ -122,9 +123,9 @@ public class HotelReservation {
     public static void main(String[] args) {
 
         HotelReservation buildObj = new HotelReservation();
-        buildObj.addHotel("Lakewood", 110,90,3);
-        buildObj.addHotel("Bridgewood", 160,50,4);
-        buildObj.addHotel("Ridgewood", 220,150,5);
+        buildObj.addHotel("Lakewood", 110,90,80,80,3);
+        buildObj.addHotel("Bridgewood", 160,50,110,50,4);
+        buildObj.addHotel("Ridgewood", 220,150,100,40,5);
 
         System.out.println( "Welcome to Hotel Reservation Program" );
 
@@ -135,6 +136,7 @@ public class HotelReservation {
         System.out.println("What do you want to do?");
         System.out.println("1. Add Hotel Entry.");
         System.out.println("2. Find Cheapest Hotel.");
+        System.out.println("3. Find Best Rated Hotel.");
         String user_input=sc.next();
 
         //Initializing main program
@@ -147,14 +149,16 @@ public class HotelReservation {
                 String hotelName = sc.next();
                 System.out.print("Enter regular rate of rooms: ");
                 int rateWeekdayRegular = sc.nextInt();
-                System.out.print("Enter WeekDay rate of rooms: ");
-                int rateWeekday = sc.nextInt();
                 System.out.print("Enter Weekend rate of rooms: ");
                 int rateWeekendRegular = sc.nextInt();
+                System.out.print("Enter reward Weekday rate of rooms: ");
+                int rateWeekdayReward = sc.nextInt();
+                System.out.print("Enter reward Weekend rate of rooms: ");
+                int rateWeekendReward = sc.nextInt();
                 System.out.print("Enter Rating of Hotel: ");
                 int rating = sc.nextInt();
 
-                buildObj.addHotel(hotelName, rateWeekdayRegular, rateWeekendRegular, rating);
+                buildObj.addHotel(hotelName, rateWeekdayRegular, rateWeekendReward,rateWeekdayRegular,rateWeekendReward, rating);
                 break;
             }
             case "2": {
@@ -164,6 +168,17 @@ public class HotelReservation {
                 System.out.println("Enter Check-Out date: ");
                 String end_date = sc.next();
                 Customer cust = buildObj.findCheapestHotel(start_date,end_date);
+
+                cust.showBill();
+                break;
+            }
+            case "3": {
+                System.out.println("Enter date range to find hotel in format(DD.MM.yyyy)");
+                System.out.println("Enter Check-In date: ");
+                String start_date = sc.next();
+                System.out.println("Enter Check-Out date: ");
+                String end_date = sc.next();
+                Customer cust = buildObj.bestRatedHotel(start_date,end_date);
 
                 cust.showBill();
                 break;
