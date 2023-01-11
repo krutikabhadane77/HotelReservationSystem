@@ -18,9 +18,10 @@ public class HotelReservation {
         hotelList.add(hotel);
     }
 
-    public boolean addHotel(String hotelName, int rate_regular) {
+    public boolean addHotel(String hotelName, int rateWeekdayRegular,int rateWeekendRegular)  {
 
-        HotelObject hotel = new HotelObject(hotelName, rate_regular);
+        HotelObject hotel = new HotelObject(hotelName,rateWeekdayRegular);
+        hotel.setWeekendRates(rateWeekendRegular);
         addToList(hotel);
         return true;
     }
@@ -48,10 +49,10 @@ public class HotelReservation {
 
         int daysStayed = daysRented(start_date, end_date);
         Optional<HotelObject> cheapestHotelOpt = hotelList.stream().min(Comparator.comparing(
-                HotelObject::getRate_regular));
+                HotelObject::getrateWeekdayRegular));
 
         HotelObject cheapestHotel = cheapestHotelOpt.get();
-        int bill = daysStayed * cheapestHotel.getRate_regular();
+        int bill = daysStayed * cheapestHotel.getrateWeekdayRegular();
 
         return new Customer(cheapestHotel.hotelName, daysStayed, bill);
     }
@@ -60,10 +61,9 @@ public class HotelReservation {
 
         //Default entries
         HotelReservation buildObj = new HotelReservation();
-        buildObj.addHotel("Lakewood", 110);
-        buildObj.addHotel("Bridgewood", 160);
-        buildObj.addHotel("Ridgewood", 220);
-
+        buildObj.addHotel("Lakewood", 110,90);
+        buildObj.addHotel("Bridgewood", 160,50);
+        buildObj.addHotel("Ridgewood", 220,150);
         System.out.println("Welcome to Hotel Reservation Program");
 
         System.out.println();
@@ -83,9 +83,12 @@ public class HotelReservation {
                 System.out.print("Enter hotel name: ");
                 String hotelName = sc.next();
                 System.out.print("Enter regular rate of rooms: ");
-                int rate_regular = sc.nextInt();
-
-                buildObj.addHotel(hotelName, rate_regular);
+                int rateWeekdayRegular = sc.nextInt();
+                System.out.print("Enter WeekDay rate of rooms: ");
+                int rateWeekday = sc.nextInt();
+                System.out.print("Enter Weekend rate of rooms: ");
+                int rateWeekendRegular = sc.nextInt();
+                buildObj.addHotel(hotelName, rateWeekdayRegular, rateWeekendRegular);
                 break;
             }
             case "2": {

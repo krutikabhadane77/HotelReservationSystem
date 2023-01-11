@@ -2,10 +2,11 @@ package com.hotelreservationsystem;
 
 public class HotelObject {
     public String hotelName;
-    public int rate_regular;
+    public int rateWeekdayRegular;
+    public int rateWeekendRegular;
     public HotelObject(String hotelName, int rate_regular) {
         this.hotelName = hotelName;
-        this.rate_regular = rate_regular;
+        this.rateWeekdayRegular = rate_regular;
     }
 
     public HotelObject(String hotelName) {
@@ -17,11 +18,17 @@ public class HotelObject {
         return "Hotel Object "+hotelName+" created";
     }
 
+    public void setWeekendRates(int rateWeekend) {
+        this.rateWeekendRegular=rateWeekend;
+        System.out.println("Weekend Rates Updated");
+    }
+
     public void display() {
 
         System.out.println("------------------------------------------------------");
         System.out.println("Hotel Name: "+hotelName);
-        System.out.println("Regular Rate: "+rate_regular);
+        System.out.println("Regular Weekday Rate: "+rateWeekdayRegular);
+        System.out.println("Regular Weekend Rate: "+rateWeekendRegular);
         System.out.println("------------------------------------------------------");
         System.out.println();
     }
@@ -34,11 +41,11 @@ public class HotelObject {
         this.hotelName = hotelName;
     }
 
-    public int getRate_regular() {
-        return rate_regular;
+    public int getrateWeekdayRegular() {
+        return rateWeekdayRegular;
     }
 
-    public void setRate_regular(int rate_regular) {
-        this.rate_regular = rate_regular;
-    }
+    public void setrateWeekdayRegular(int rate_regular) {
+            this.rateWeekdayRegular = rate_regular;
+        }
 }
