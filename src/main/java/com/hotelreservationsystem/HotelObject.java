@@ -2,6 +2,7 @@ package com.hotelreservationsystem;
 
 public class HotelObject {
     public String hotelName;
+    public int rating;
     public int rateWeekdayRegular;
     public int rateWeekendRegular;
     public int totalBill=0;
@@ -22,6 +23,11 @@ public class HotelObject {
     public void setWeekendRates(int rateWeekend) {
         this.rateWeekendRegular=rateWeekend;
         System.out.println("Weekend Rates Updated");
+    }
+
+    public void addRating(int rating) {
+        this.rating=rating;
+        System.out.println("Rating "+rating+" stars added.");
     }
 
     public void display() {
