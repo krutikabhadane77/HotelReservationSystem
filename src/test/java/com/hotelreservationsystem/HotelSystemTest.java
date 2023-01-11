@@ -48,4 +48,11 @@ public class HotelSystemTest {
         cust=hotelReservation.findCheapestHotel("12.05.2020", "13.05.2020");
         assertEquals("Lakewood", cust.getHotelName());
     }
+
+    @Test
+    public void whenStayed1DayMaxRatedHotelShouldBeRidgeWood()
+    {
+        cust=hotelReservation.bestRatedHotel("12.05.2020", "13.05.2020");
+        assertEquals("Ridgewood", cust.getHotelName());
+    }
 }
