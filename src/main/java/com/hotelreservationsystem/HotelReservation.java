@@ -69,7 +69,9 @@ public class HotelReservation {
         return weekArr;
     }
 
-    public Customer bestRatedHotel(String start_date, String end_date) {
+    public Customer bestRatedHotel(String type,String start_date, String end_date) {
+
+        Customer cust=new Customer("", 0, 0);
 
         Date dateArr[]=stringDateConvereter(start_date, end_date);
         Date startDate= dateArr[0];
@@ -79,7 +81,9 @@ public class HotelReservation {
         int noOfWeekdays=checkWeekdayWeekend(startDate, endDate)[0];
         int noOfWeekends=checkWeekdayWeekend(startDate, endDate)[1];
         for(HotelObject hotel: hotelList) {
-            int totalBill = noOfWeekdays*hotel.rateWeekdayRegular+noOfWeekends*hotel.rateWeekendRegular;
+            cust.setCustType(type, hotel);
+            int totalBill = noOfWeekdays*cust.rateWeekday+noOfWeekends*cust.rateWeekend;
+            cust.setCustType(type, hotel);
             hotel.totalBill=totalBill;
         }
         Optional<HotelObject> cheapestHotelOpt = hotelList.stream().max((Comparator
@@ -87,14 +91,16 @@ public class HotelReservation {
         );
 
         HotelObject cheapestHotel = cheapestHotelOpt.get();
-        int bill=daysStayed*cheapestHotel.getrateWeekdayRegular();
+        cust.bill=cheapestHotel.totalBill;
+        cust.setHotelName(cheapestHotel.hotelName);
+        cust.setDaysStayed(daysStayed);
 
-        return new Customer(cheapestHotel.hotelName, daysStayed, bill);
+        return null;
     }
 
 
-    public Customer findCheapestHotel(String start_date, String end_date) {
-
+    public Customer findCheapestHotel(String type,String start_date, String end_date) {
+        Customer cust=new Customer("", 0, 0);
         Date dateArr[]=stringDateConvereter(start_date, end_date);
         Date startDate= dateArr[0];
         Date endDate= dateArr[1];
@@ -104,7 +110,9 @@ public class HotelReservation {
         int noOfWeekends=checkWeekdayWeekend(startDate, endDate)[1];
 
         for(HotelObject hotel: hotelList) {
-            int totalBill = noOfWeekdays*hotel.rateWeekdayRegular+noOfWeekends*hotel.rateWeekendRegular;
+            cust.setCustType(type, hotel);
+            int totalBill = noOfWeekdays*cust.rateWeekday+noOfWeekends*cust.rateWeekend;
+            cust.setCustType(type, hotel);
             hotel.totalBill=totalBill;
         }
 
@@ -114,9 +122,10 @@ public class HotelReservation {
         );
 
         HotelObject cheapestHotel = cheapestHotelOpt.get();
-        int bill=daysStayed*cheapestHotel.getrateWeekdayRegular();
-
-        return new Customer(cheapestHotel.hotelName, daysStayed, bill);
+        cust.bill=cheapestHotel.totalBill;
+        cust.setHotelName(cheapestHotel.hotelName);
+        cust.setDaysStayed(daysStayed);
+        return cust;
     }
 
 
@@ -162,23 +171,27 @@ public class HotelReservation {
                 break;
             }
             case "2": {
+                System.out.println("Please enter Customer Type-Reward/Regular");
+                String type = sc.next().toLowerCase();
                 System.out.println("Enter date range to find hotel in format(DD.MM.yyyy)");
                 System.out.println("Enter Check-In date: ");
                 String start_date = sc.next();
                 System.out.println("Enter Check-Out date: ");
                 String end_date = sc.next();
-                Customer cust = buildObj.findCheapestHotel(start_date,end_date);
+                Customer cust = buildObj.findCheapestHotel(type,start_date,end_date);
 
                 cust.showBill();
                 break;
             }
             case "3": {
+                System.out.println("Please enter Customer Type-Reward/Regular");
+                String type = sc.next().toLowerCase();
                 System.out.println("Enter date range to find hotel in format(DD.MM.yyyy)");
                 System.out.println("Enter Check-In date: ");
                 String start_date = sc.next();
                 System.out.println("Enter Check-Out date: ");
                 String end_date = sc.next();
-                Customer cust = buildObj.bestRatedHotel(start_date,end_date);
+                Customer cust = buildObj.bestRatedHotel(type,start_date,end_date);
 
                 cust.showBill();
                 break;
